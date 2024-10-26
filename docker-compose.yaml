@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  onu-2:
+    image: wordpress
+    ports:
+      - 8081:8081
+    depends_on:
+      - onu-3
+    environment:
+      WORDPRESS_DB_HOST: onu-3
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: "onuora"
+      WORDPRESS_DB_NAME: wordpress
+  onu-3:
+    image: "mysql:5.7"
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_ROOT_PASSWORD: "onuora"
+    volumes:
+      - ./mysql:/var/lib/mysql
